@@ -7,6 +7,10 @@ Progetto Fabrick corrispondente ad un test tecnico di Aizoon Group
 ```http
   localhost:8080
 ```
+```http
+  /localhost:8080/swagger-ui.html
+```
+
 
 #### Lettura Saldo
 
