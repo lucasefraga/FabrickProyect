@@ -20,12 +20,18 @@ import java.net.http.HttpResponse;
 @Service
 public class FabrickService implements IFabrickService{
 
+    private final HttpClient client;
 
     @Value("${url.saldo}") //https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts/
     private String urlBanking;
 
     @Value("${api.key}")
     private String apiKey;
+
+    public FabrickService(HttpClient client) {
+        this.client = client;
+    }
+
 
     @Override
     public ResponseDTO getSaldo(Long accountId){
@@ -52,7 +58,7 @@ public class FabrickService implements IFabrickService{
 
             String json = writer.writeValueAsString(bonifico);
 
-            HttpClient client = HttpClient.newHttpClient();
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(urlBanking+accountId+"/payments/money-transfers"))
                     .headers("Content-Type", "application/json",
@@ -90,7 +96,7 @@ public class FabrickService implements IFabrickService{
     private HttpResponse<String> getRequest(String url){
 
         try {
-            HttpClient client = HttpClient.newHttpClient();
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .headers("Content-Type", "application/json",
